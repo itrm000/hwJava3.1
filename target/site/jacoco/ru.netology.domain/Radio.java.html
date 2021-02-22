@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Radio.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">statistics</a> &gt; <a href="index.source.html" class="el_package">ru.netology.domain</a> &gt; <span class="el_source">Radio.java</span></div><h1>Radio.java</h1><pre class="source lang-java linenums">package ru.netology.domain;
+
+
+public class Radio {
+    private static final int CHANNEL_MAX = 9;
+    private static final int CHANNEL_MIN = 0;
+    private static final int LEVEL_MAX = 10;
+    private static final int LEVEL_MIN = 0;
+
+    private int numberRadio;
+    private int soundLevel;
+
+<span class="nc" id="L13">    public Radio(int numberRadio, int soundLevel) {</span>
+<span class="nc bnc" id="L14" title="All 4 branches missed.">        if ((numberRadio &lt; CHANNEL_MIN || numberRadio &gt; CHANNEL_MAX)) {</span>
+<span class="nc" id="L15">            System.out.println(&quot;введите номер канала от 0 до 9&quot;);</span>
+<span class="nc bnc" id="L16" title="All 4 branches missed.">        } else if (soundLevel &lt; LEVEL_MIN  || soundLevel &gt; LEVEL_MAX) {</span>
+<span class="nc" id="L17">            System.out.println(&quot;введите уровень громкости от 0 до 10 &quot;);</span>
+        } else {
+<span class="nc" id="L19">            this.numberRadio = numberRadio;</span>
+<span class="nc" id="L20">            this.soundLevel = soundLevel;</span>
+        }
+<span class="nc" id="L22">    }</span>
+
+<span class="fc" id="L24">    public Radio(int initialActualChannel) {</span>
+<span class="fc" id="L25">        this.numberRadio = initialActualChannel;</span>
+<span class="fc" id="L26">        this.soundLevel = initialActualChannel;</span>
+<span class="fc" id="L27">    }</span>
+
+<span class="fc" id="L29">    public Radio() {</span>
+<span class="fc" id="L30">    };</span>
+
+
+    public int getNumberRadio() {
+<span class="nc" id="L34">        return numberRadio;</span>
+    }
+
+    public int getSoundLevel() {
+<span class="nc" id="L38">        return soundLevel;</span>
+    }
+
+
+    public int setNumberRadio (int numberRadio) {
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">        if (numberRadio &lt; LEVEL_MIN || numberRadio &gt; LEVEL_MAX) {</span>
+<span class="nc" id="L44">            System.out.println(&quot;введите номер канала от 0 до 9&quot;);</span>
+        } else {
+<span class="fc" id="L46">            this.numberRadio = numberRadio;</span>
+        }
+<span class="fc" id="L48">        return numberRadio;</span>
+    }
+
+    public int setSoundLevel (int soundLevel) { // изменение уровня громкости
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">        if (soundLevel &lt; LEVEL_MIN || soundLevel &gt; LEVEL_MAX) {</span>
+<span class="nc" id="L53">            System.out.println(&quot;введите уровень громкости от 0 до 10 &quot;);</span>
+        } else {
+<span class="fc" id="L55">            this.soundLevel = soundLevel;</span>
+        }
+
+<span class="fc" id="L58">        return soundLevel;</span>
+    }
+
+    public int next() {
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (numberRadio == CHANNEL_MAX) {</span>
+<span class="fc" id="L63">            numberRadio = 0;</span>
+        } else {
+<span class="nc" id="L65">            numberRadio = numberRadio + 1;</span>
+        }
+
+<span class="fc" id="L68">        return numberRadio;</span>
+    }
+
+    public int prev() {
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if (numberRadio == CHANNEL_MIN) {</span>
+<span class="fc" id="L73">            numberRadio = 9;</span>
+        } else {
+<span class="nc" id="L75">            numberRadio = numberRadio - 1;</span>
+        }
+
+<span class="fc" id="L78">        return numberRadio;</span>
+    }
+
+    public int plusSound (){
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if (soundLevel == LEVEL_MAX) {</span>
+<span class="fc" id="L83">            soundLevel = 10;</span>
+        } else {
+<span class="nc" id="L85">            soundLevel++;</span>
+        }
+
+<span class="fc" id="L88">        return soundLevel;</span>
+    }
+
+    public int minusSound (){
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (soundLevel == LEVEL_MIN){</span>
+<span class="fc" id="L93">            soundLevel = 0;</span>
+        } else {
+<span class="nc" id="L95">            soundLevel--;</span>
+        }
+
+<span class="fc" id="L98">        return soundLevel;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
