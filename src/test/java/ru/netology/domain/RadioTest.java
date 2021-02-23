@@ -62,13 +62,13 @@ class RadioTest {
     @Test
     void testRadioFAIL() throws IllegalArgumentException {
         //when
-        int actualChannel = 2;
-        int actualSoundLevel = 4;
+        int actualChannel = 3;
+        int actualSoundLevel = 5;
 
         Radio radio = new Radio();
 
-        assertEquals(2, actualChannel);
-        assertEquals(4, actualSoundLevel);
+        assertEquals(3, actualChannel);
+        assertEquals(5, actualSoundLevel);
     }
 
     @Test
