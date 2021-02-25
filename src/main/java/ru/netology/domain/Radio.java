@@ -12,7 +12,7 @@ public class Radio {
     public Radio(int numberRadio, int soundLevel) {
         if ((numberRadio < CHANNEL_MIN || numberRadio > CHANNEL_MAX)) {
             throw new IllegalArgumentException("Ошибка в Radio::Radio(int numberRadio, int soundLevel). Некорректный канал: " + numberRadio);
-        } else if (soundLevel < LEVEL_MIN  || soundLevel > LEVEL_MAX) {
+        } else if (soundLevel < LEVEL_MIN || soundLevel > LEVEL_MAX) {
             throw new IllegalArgumentException("Ошибка в Radio::Radio(int numberRadio, int soundLevel). Некорректный уровень громкости: " + soundLevel);
         } else {
             this.soundLevel = soundLevel;
@@ -20,9 +20,34 @@ public class Radio {
         }
     }
 
-    public Radio(int initialActualChannel) {
-        this.numberRadio = initialActualChannel;
-        this.soundLevel = initialActualChannel;
+    private Radio(int soundLevelAndChanel, boolean soundLevelOrChanel) {
+
+        if (soundLevelOrChanel == true) { // check soundlevel
+
+            int soundLevel = soundLevelAndChanel;
+
+            if ((soundLevel < LEVEL_MIN || soundLevel > LEVEL_MAX)) {
+                throw new IllegalArgumentException("Ошибка в Radio::Radio(int soundLevel). Некорректный уровень громкости: " + soundLevel);
+            } else {
+                this.soundLevel = soundLevel;
+            }
+        } else if (soundLevelOrChanel == false) { // check chanel
+            int actualChannel = soundLevelAndChanel;
+            if (actualChannel < CHANNEL_MIN || actualChannel > CHANNEL_MAX) {
+                throw new IllegalArgumentException("Ошибка в Radio::Radio(int initialActualChannel). Некорректный канал: " + actualChannel);
+            } else {
+                this.numberRadio = actualChannel;
+            }
+        }
+
+    }
+
+    public static Radio createRadioWithSoundOnlyAndChanel0(int soundLevel) {
+        return new Radio(soundLevel, true);
+    }
+
+    public static Radio createRadioWithChannelOnlyAndSoundLevel0(int channel) {
+        return new Radio(channel, false);
     }
 
     public int getNumberRadio() {
@@ -34,7 +59,7 @@ public class Radio {
     }
 
 
-    public void setNumberRadio (int numberRadio) {
+    public void setNumberRadio(int numberRadio) {
         if (numberRadio < LEVEL_MIN || numberRadio > LEVEL_MAX) {
             throw new IllegalArgumentException("Ошибка в Radio::setNumberRadio. Некорректный канал: " + numberRadio);
         } else {
@@ -42,7 +67,7 @@ public class Radio {
         }
     }
 
-    public void setSoundLevel (int soundLevel) {
+    public void setSoundLevel(int soundLevel) {
         if (soundLevel < LEVEL_MIN || soundLevel > LEVEL_MAX) {
             throw new IllegalArgumentException("Ошибка в Radio::setSoundLevel. Некорректный уровень громкости: " + soundLevel);
         } else {
@@ -68,7 +93,7 @@ public class Radio {
         return numberRadio;
     }
 
-    public int plusSound (){
+    public int plusSound() {
         if (soundLevel == LEVEL_MAX) {
             soundLevel = LEVEL_MAX;
         } else {
@@ -77,8 +102,8 @@ public class Radio {
         return soundLevel;
     }
 
-    public int minusSound (){
-        if (soundLevel == LEVEL_MIN){
+    public int minusSound() {
+        if (soundLevel == LEVEL_MIN) {
             soundLevel = LEVEL_MIN;
         } else {
             soundLevel--;

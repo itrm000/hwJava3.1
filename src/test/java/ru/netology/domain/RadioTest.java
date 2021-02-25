@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RadioTest {
 
     @Test
-    void testNumberRadioFAIL() throws IllegalArgumentException {
+    void testNumberChannelRadioFAIL() {
         int actualChannel = -2;
         int actualSoundLevel = 4;
         String actualMessage = null;
@@ -24,7 +24,7 @@ class RadioTest {
     }
 
     @Test
-    void testSoundLevelRadioFAIL() throws IllegalArgumentException {
+    void testSoundLevelRadioFAIL(){
         int actualChannel = 2;
         int actualSoundLevel = -4;
         String actualMessage = null;
@@ -40,7 +40,7 @@ class RadioTest {
     }
 
     @Test
-    void testlRadio() {
+    void testChannelAndSoundLevelRadioOk() {
         int actualChannel = 2;
         int actualSoundLevel = 4;
 
@@ -60,7 +60,7 @@ class RadioTest {
         String actualMessage = null;
 
         try {
-            Radio radio = new Radio(intitialActualChannel);
+            Radio radio = Radio.createRadioWithChannelOnlyAndSoundLevel0(intitialActualChannel);
             radio.setNumberRadio(newActualChannel);
         } catch (IllegalArgumentException ex) {
             actualMessage = ex.getMessage();
@@ -71,12 +71,12 @@ class RadioTest {
     }
 
     @Test
-    void testSetNumberRadioOK() {
+    void testSetNumberChanelRadioOK() {
 
         int intitialActualChannel = 6;
         int newActualChannel = 8;
 
-        Radio radio = new Radio(intitialActualChannel);
+        Radio radio = Radio.createRadioWithChannelOnlyAndSoundLevel0(intitialActualChannel);
         radio.setNumberRadio(newActualChannel);
 
         int currentNumberRadio = radio.getNumberRadio();
@@ -90,7 +90,7 @@ class RadioTest {
         String actualMessage = null;
 
         try {
-            Radio radio = new Radio(intitialActualLevel);
+            Radio radio = Radio.createRadioWithChannelOnlyAndSoundLevel0(intitialActualLevel);
             radio.setSoundLevel(newActualLevel);
         } catch (IllegalArgumentException ex){
             actualMessage = ex.getMessage();
@@ -105,7 +105,7 @@ class RadioTest {
         int initialLevelSound = 1;
         int newLevelSound = 5;
 
-        Radio radio = new Radio(initialLevelSound);
+        Radio radio = Radio.createRadioWithSoundOnlyAndChanel0(initialLevelSound);
         radio.setSoundLevel(newLevelSound);
 
         int currentLevelSound = radio.getSoundLevel();
@@ -113,92 +113,129 @@ class RadioTest {
     }
 
     @Test
-    void testNextOK9() {
+    void tesChannelNext9_OK() {
 
         int actualChannal = 9;
-        Radio radio1 = new Radio(actualChannal);
+        Radio radio1 =  Radio.createRadioWithChannelOnlyAndSoundLevel0(actualChannal);
         int newActualChannal = radio1.next();
 
         assertEquals(0, newActualChannal);
     }
 
     @Test
-    void testNextOK4() {
+    void testChannelNext4_OK() {
 
         int actualChannal = 4;
-        Radio radio1 = new Radio(actualChannal);
+        Radio radio1 = Radio.createRadioWithChannelOnlyAndSoundLevel0(actualChannal);
         int newActualChannal = radio1.next();
 
         assertEquals(5, newActualChannal);
     }
 
     @Test
-    void testPrevOK0() {
+    void testChannelNext25_FAIL() {
+
+        int actualChannal = 25;
+        String actualMessege = null;
+
+        try {
+            Radio radio1 = Radio.createRadioWithChannelOnlyAndSoundLevel0(actualChannal);
+            radio1.next();
+        } catch (IllegalArgumentException ex){
+            actualMessege = ex.getMessage();
+        }
+
+        String expectedMessege = "Ошибка в Radio::Radio(int initialActualChannel). Некорректный канал: " + actualChannal;
+        assertEquals(expectedMessege, actualMessege);
+    }
+
+    @Test
+    void testChannelPrev0_OK() {
         int actualChannal = 0;
-        Radio radio1 = new Radio(actualChannal);
+        Radio radio1 = Radio.createRadioWithChannelOnlyAndSoundLevel0(actualChannal);;
         int newActualChannal = radio1.prev();
 
         assertEquals(9, newActualChannal);
     }
 
     @Test
-    void testPrevOK7() {
+    void testChannelPrev7_OK() {
         int actualChannal = 7;
-        Radio radio1 = new Radio(actualChannal);
+        Radio radio1 =  Radio.createRadioWithChannelOnlyAndSoundLevel0(actualChannal);
         int newActualChannal = radio1.prev();
 
         assertEquals(6, newActualChannal);
     }
 
     @Test
-    void testPlusOK10(){
+    void testChannelPlus10_OK(){
         int actualLevelSound = 10;
-        Radio radio = new Radio(actualLevelSound);
+        Radio radio = Radio.createRadioWithSoundOnlyAndChanel0(actualLevelSound);
         int newActualLevelSound = radio.plusSound();
 
         assertEquals(10, newActualLevelSound);
     }
 
     @Test
-    void testPlusOK6(){
+    void testChannelPlus6_OK(){
         int actualLevelSound = 6;
-        Radio radio = new Radio(actualLevelSound);
+        Radio radio = Radio.createRadioWithSoundOnlyAndChanel0(actualLevelSound);
         int newActualLevelSound = radio.plusSound();
 
         assertEquals(7, newActualLevelSound);
     }
 
     @Test
-    void testMinusOK0(){
+    void testChannelPlus27_FAIL(){
+        int actualLevelSound = 27;
+        String actualMessege = null;
+
+        try {
+            Radio radio = Radio.createRadioWithSoundOnlyAndChanel0(actualLevelSound);
+            radio.plusSound();
+        } catch (IllegalArgumentException ex){
+            actualMessege = ex.getMessage();
+        }
+
+        String expectedMessege = "Ошибка в Radio::Radio(int soundLevel). Некорректный уровень громкости: " + actualLevelSound;
+        assertEquals(expectedMessege, actualMessege);
+    }
+
+
+
+
+
+    @Test
+    void testLevelSoundMinus0_OK(){
         int actualLevelSound = 0;
-        Radio radio = new Radio(actualLevelSound);
+        Radio radio = Radio.createRadioWithSoundOnlyAndChanel0(actualLevelSound);
         int newActualLevelSound = radio.minusSound();
 
         assertEquals(0, newActualLevelSound);
     }
 
     @Test
-    void testMinusOK5(){
+    void testLevelSoundMinus5_OK(){
         int actualLevelSound = 5;
-        Radio radio = new Radio(actualLevelSound);
+        Radio radio =  Radio.createRadioWithSoundOnlyAndChanel0(actualLevelSound);
         int newActualLevelSound = radio.minusSound();
 
         assertEquals(4, newActualLevelSound);
     }
 
     @Test
-    void getNumberRadio() {
+    void testChanelAndGetterNumberRadioOK() {
         int actualChannal = 2;
-        Radio radio = new Radio(actualChannal);
+        Radio radio = Radio.createRadioWithChannelOnlyAndSoundLevel0(actualChannal);
         int newActualChannal = radio.getNumberRadio();
 
         assertEquals(2, newActualChannal);
     }
 
     @Test
-    void getSoundLevel() {
+    void testSoundLevelAndGetterOK() {
         int actualLevelSound = 3;
-        Radio radio = new Radio(actualLevelSound);
+        Radio radio = Radio.createRadioWithSoundOnlyAndChanel0(actualLevelSound);
         int newActualLevelSound = radio.getSoundLevel();
 
         assertEquals(3, newActualLevelSound);
